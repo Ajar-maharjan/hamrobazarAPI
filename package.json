@@ -1,0 +1,37 @@
+{
+  "name": "login-register-and-delete-apis-and-swagger-doc",
+  "version": "1.0.0",
+  "description": "login, register and delete along with token verification and swagger doc",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/softwarica-github/login-register-and-delete-apis-and-corresponding-swagger-doc-Ajar-maharjan.git"
+  },
+  "keywords": [
+    "login",
+    "register",
+    "delete",
+    "token",
+    "swagger documentation"
+  ],
+  "author": "Ajar maharjan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/softwarica-github/login-register-and-delete-apis-and-corresponding-swagger-doc-Ajar-maharjan/issues"
+  },
+  "homepage": "https://github.com/softwarica-github/login-register-and-delete-apis-and-corresponding-swagger-doc-Ajar-maharjan#index.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.0.1",
+    "nodemon": "^2.0.1",
+    "sequelize": "^5.21.2",
+    "swagger-jsdoc": "^3.5.0",
+    "swagger-ui-express": "^4.1.2"
+  }
+}
