@@ -1,56 +1,40 @@
-const express= require("express");
+const express = require('express');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const uploadRouter = require('./routes/upload');
+const productRouter = require('./routes/product');
+const dotenv = require('dotenv');
+
+const app = express();
+dotenv.config();
+app.use(express.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(express.static(__dirname + "/public"));
 
 
-
-const app= express();
-app.use('/upload', uploadRouter);
-
-
-app.use (express.static("public"));
-
-mongoose.connect("mongodb://localhost:27017/Hamrobazar", { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
-
-const productSchema = {
-    name:String,
-    price: Number,
-    condition: String,
-    image:{
-       type: String
-      }
-  };
-
-  const Products = mongoose.model("products",productSchema);
-
-
-
-
-  
-  app.route("/products")
-  .get(function(req,res){
-    Products.find(function(err, foundProducts){
-  if(!err){
-    res.send(foundProducts)
-  }else{
-    res.send(err);
-  }
-  
-    });
+mongoose.connect(process.env.URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
   })
-  
-  
-  app.route("/products/:productTitle")
-  .get(function(req, res){
-    Products.findOne({title: req.params.products},function(err, foundProducts){
-      if(foundProducts){
-        res.send(foundProducts);
-      }else{
-        res.send("no products");
-      }
-    });
+  .then((db) => {
+    console.log("Successfully connected to MongodB server");
+  }, (err) => console.log(err));
+
+app.use('/upload', uploadRouter);
+app.use('/', productRouter);
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.statusCode = 500;
+  res.json({
+    status: err.message
   });
-  
-app.listen(3000, function(){
-  console.log("server started on port 3000");
+});
+
+app.listen(process.env.PORT, () => {
+  console.log(`App is running at localhost:${process.env.PORT}`);
 });
