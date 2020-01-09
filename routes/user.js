@@ -27,7 +27,7 @@ router.post('/signup', (req, res, next) => {
             }, "this is secret key");
             res.json({
                 status: "Signup success!",
-                // ?token: token
+                token: token
             });
         }).catch(next);
     });
