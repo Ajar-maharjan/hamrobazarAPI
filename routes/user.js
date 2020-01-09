@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../Model/user');
+const auth = require('../auth');
 const router = express.Router();
 
 router.post('/signup', (req, res, next) => {
@@ -63,5 +64,13 @@ router.post('/login', (req, res, next) => {
         }).catch(next);
 })
 
+router.get('/me',auth.verifyUser,(req,res,next)=>{
+    res.json({
+        _id:req._id,
+        fullName:req.user.fullName,
+        email:req.user.email,
+        image:req.user.image
+    });
+});
 
 module.exports = router;
